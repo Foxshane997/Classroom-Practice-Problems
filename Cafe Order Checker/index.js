@@ -30,7 +30,27 @@
 // Note: Order numbers are arbitrary. They do not have to be in increasing order.
 
 function isFirstComeFirstServed(takeOutOrders, dineInOrders, servedOrders) {
-  return null
+  const combinedOrders = takeOutOrders.concat(dineInOrders);
+  let servedIndex = 0;
+
+  for (const order of combinedOrders) {
+    while (servedIndex < servedOrders.length && servedOrders[servedIndex] !== order) {
+      servedIndex++;
+    }
+    
+    if (servedIndex === servedOrders.length) {
+      return false;
+    }
+    
+    servedIndex++;
+  }
+  
+  return true;
 }
+
+module.exports = isFirstComeFirstServed;
+
+console.log(isFirstComeFirstServed([1, 3, 5], [2, 4, 6], [1, 2, 4, 6, 5, 3])); // false
+console.log(isFirstComeFirstServed([17, 8, 24], [12, 19, 2], [17, 8, 12, 19, 24, 2])); // true
 
 module.exports = isFirstComeFirstServed;
